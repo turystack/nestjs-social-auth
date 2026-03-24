@@ -2,7 +2,7 @@ import { type DynamicModule, Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import type { ISocialAuthAdapter } from '@/social-auth.adapter.interface.js'
-import { SOCIAL_AUTH_OPTIONS } from '@/social-auth.constants.js'
+import { SOCIAL_AUTH_ADAPTERS } from '@/social-auth.constants.js'
 import { SocialAuthService } from '@/social-auth.service.js'
 import type {
 	SocialAuthOptionsFactory,
@@ -30,7 +30,7 @@ export class SocialAuthModule {
 					inject: [
 						ConfigService,
 					],
-					provide: SOCIAL_AUTH_OPTIONS,
+					provide: SOCIAL_AUTH_ADAPTERS,
 					useFactory: (config: ConfigService) => {
 						const opts = factory(config)
 

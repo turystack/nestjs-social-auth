@@ -1,9 +1,7 @@
 export * from '@/social-auth.module.js'
 export * from '@/social-auth.service.js'
 export type {
-	SocialAuthInput,
 	SocialAuthOptions,
-	SocialAuthOptionsFactory,
 	SocialAuthProfile,
 	SocialAuthProvider,
 	SocialAuthProviderConfig,

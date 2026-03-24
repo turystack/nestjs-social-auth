@@ -9,11 +9,6 @@ export type SocialAuthProfile = {
 	name: string | null
 }
 
-export type SocialAuthInput = {
-	provider: SocialAuthProvider
-	token: string
-}
-
 export type SocialAuthProviderConfig = {
 	apple?: {
 		clientId: string
