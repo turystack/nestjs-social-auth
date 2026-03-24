@@ -6,6 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var SocialAuthModule_1;
 import { Module } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { SOCIAL_AUTH_ADAPTERS, SOCIAL_AUTH_OPTIONS, } from './social-auth.constants.js';
 import { SocialAuthService } from './social-auth.service.js';
 import { AppleAdapter } from './adapters/apple/index.js';
@@ -13,23 +14,18 @@ import { FacebookAdapter } from './adapters/facebook/index.js';
 import { GoogleAdapter } from './adapters/google/index.js';
 import { MicrosoftAdapter } from './adapters/microsoft/index.js';
 let SocialAuthModule = SocialAuthModule_1 = class SocialAuthModule {
-    static register(options) {
+    static register(factory) {
         return {
-            exports: [
-                SocialAuthService,
-            ],
-            imports: options.imports ?? [],
+            exports: [SocialAuthService],
             module: SocialAuthModule_1,
             providers: [
                 {
-                    inject: options.inject ?? [],
+                    inject: [ConfigService],
                     provide: SOCIAL_AUTH_OPTIONS,
-                    useFactory: options.useFactory,
+                    useFactory: (config) => factory(config),
                 },
                 {
-                    inject: [
-                        SOCIAL_AUTH_OPTIONS,
-                    ],
+                    inject: [SOCIAL_AUTH_OPTIONS],
                     provide: SOCIAL_AUTH_ADAPTERS,
                     useFactory: (opts) => {
                         const adapters = new Map();

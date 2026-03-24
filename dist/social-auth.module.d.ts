@@ -1,6 +1,6 @@
 import { type DynamicModule } from '@nestjs/common';
-import type { SocialAuthModuleOptions } from './social-auth.types.js';
+import type { SocialAuthOptionsFactory } from './social-auth.types.js';
 export declare class SocialAuthModule {
-    static register(options: SocialAuthModuleOptions): DynamicModule;
+    static register(factory: SocialAuthOptionsFactory): DynamicModule;
 }
 //# sourceMappingURL=social-auth.module.d.ts.map

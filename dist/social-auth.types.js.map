@@ -1,1 +1,1 @@
-{"version":3,"file":"social-auth.types.js","sourceRoot":"","sources":["../src/social-auth.types.ts"],"names":[],"mappings":"AAAA,MAAM,CAAN,IAAY,kBAKX;AALD,WAAY,kBAAkB;IAC7B,qCAAe,CAAA;IACf,2CAAqB,CAAA;IACrB,uCAAiB,CAAA;IACjB,6CAAuB,CAAA;AACxB,CAAC,EALW,kBAAkB,KAAlB,kBAAkB,QAK7B"}
+{"version":3,"file":"social-auth.types.js","sourceRoot":"","sources":["../src/social-auth.types.ts"],"names":[],"mappings":"AAEA,MAAM,CAAN,IAAY,kBAKX;AALD,WAAY,kBAAkB;IAC7B,qCAAe,CAAA;IACf,2CAAqB,CAAA;IACrB,uCAAiB,CAAA;IACjB,6CAAuB,CAAA;AACxB,CAAC,EALW,kBAAkB,KAAlB,kBAAkB,QAK7B"}

@@ -1,3 +1,5 @@
+import type { ConfigService } from '@nestjs/config'
+
 export enum SocialAuthProvider {
 	APPLE = 'APPLE',
 	FACEBOOK = 'FACEBOOK',
@@ -34,8 +36,4 @@ export type SocialAuthOptions = {
 	providers: SocialAuthProviderConfig
 }
 
-export type SocialAuthModuleOptions = {
-	imports?: any[]
-	inject?: any[]
-	useFactory: (...args: any[]) => SocialAuthOptions | Promise<SocialAuthOptions>
-}
+export type SocialAuthOptionsFactory = (config: ConfigService) => SocialAuthOptions | Promise<SocialAuthOptions>
