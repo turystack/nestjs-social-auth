@@ -1,11 +1,10 @@
 import { type DynamicModule, Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import type { ISocialAuthAdapter } from '@/social-auth.adapter.interface.js'
 import { SOCIAL_AUTH_ADAPTERS } from '@/social-auth.constants.js'
 import { SocialAuthService } from '@/social-auth.service.js'
 import type {
-	SocialAuthOptionsFactory,
+	SocialAuthModuleOptions,
 	SocialAuthProvider,
 } from '@/social-auth.types.js'
 
@@ -16,49 +15,35 @@ import { MicrosoftAdapter } from '@/adapters/microsoft/index.js'
 
 @Module({})
 export class SocialAuthModule {
-	static register(factory: SocialAuthOptionsFactory): DynamicModule {
+	static register(options: SocialAuthModuleOptions): DynamicModule {
 		return {
 			exports: [
 				SocialAuthService,
 			],
-			imports: [
-				ConfigModule,
-			],
 			module: SocialAuthModule,
 			providers: [
 				{
-					inject: [
-						ConfigService,
-					],
 					provide: SOCIAL_AUTH_ADAPTERS,
-					useFactory: (config: ConfigService) => {
-						const opts = factory(config)
-
+					useFactory: () => {
 						const adapters = new Map<SocialAuthProvider, ISocialAuthAdapter>()
 
-						if (opts.providers.google) {
-							adapters.set(
-								'GOOGLE',
-								new GoogleAdapter(opts.providers.google.clientId),
-							)
+						if (options.google) {
+							adapters.set('GOOGLE', new GoogleAdapter(options.google.clientId))
 						}
 
-						if (opts.providers.facebook) {
+						if (options.facebook) {
 							adapters.set('FACEBOOK', new FacebookAdapter())
 						}
 
-						if (opts.providers.microsoft) {
+						if (options.microsoft) {
 							adapters.set(
 								'MICROSOFT',
-								new MicrosoftAdapter(opts.providers.microsoft.tenantId),
+								new MicrosoftAdapter(options.microsoft.tenantId),
 							)
 						}
 
-						if (opts.providers.apple) {
-							adapters.set(
-								'APPLE',
-								new AppleAdapter(opts.providers.apple.clientId),
-							)
+						if (options.apple) {
+							adapters.set('APPLE', new AppleAdapter(options.apple.clientId))
 						}
 
 						return adapters

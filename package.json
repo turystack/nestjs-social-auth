@@ -36,14 +36,12 @@
 	},
 	"peerDependencies": {
 		"@nestjs/common": "^11.0.0",
-		"@nestjs/config": "^4.0.0",
 		"@nestjs/core": "^11.0.0",
 		"reflect-metadata": "^0.2.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.2",
 		"@nestjs/common": "^11.0.0",
-		"@nestjs/config": "^4.0.0",
 		"@nestjs/core": "^11.0.0",
 		"@nestjs/testing": "^11.0.0",
 		"@types/node": "^25.5.0",

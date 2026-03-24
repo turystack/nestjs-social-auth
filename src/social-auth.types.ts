@@ -1,5 +1,3 @@
-import type { ConfigService } from '@nestjs/config'
-
 export type SocialAuthProvider = 'APPLE' | 'FACEBOOK' | 'GOOGLE' | 'MICROSOFT'
 
 export type SocialAuthProfile = {
@@ -9,7 +7,7 @@ export type SocialAuthProfile = {
 	name: string | null
 }
 
-export type SocialAuthProviderConfig = {
+export type SocialAuthModuleOptions = {
 	apple?: {
 		clientId: string
 	}
@@ -21,11 +19,3 @@ export type SocialAuthProviderConfig = {
 		tenantId?: string
 	}
 }
-
-export type SocialAuthOptions = {
-	providers: SocialAuthProviderConfig
-}
-
-export type SocialAuthOptionsFactory = (
-	config: ConfigService,
-) => SocialAuthOptions
