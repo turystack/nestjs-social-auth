@@ -1,0 +1,1 @@
+{"version":3,"file":"social-auth.adapter.interface.d.ts","sourceRoot":"","sources":["../src/social-auth.adapter.interface.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,iBAAiB,EAAE,MAAM,wBAAwB,CAAA;AAE/D,MAAM,WAAW,kBAAkB;IAClC,eAAe,CAAC,KAAK,EAAE,MAAM,GAAG,OAAO,CAAC,iBAAiB,CAAC,CAAA;CAC1D"}

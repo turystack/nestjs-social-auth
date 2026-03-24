@@ -1,0 +1,1 @@
+{"version":3,"file":"social-auth-unauthorized.exception.js","sourceRoot":"","sources":["../../src/exceptions/social-auth-unauthorized.exception.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,qBAAqB,EAAE,MAAM,gBAAgB,CAAA;AAEtD,MAAM,OAAO,+BAAgC,SAAQ,qBAAqB;IACzE,YAAY,OAAO,GAAG,+BAA+B;QACpD,KAAK,CAAC,OAAO,CAAC,CAAA;IACf,CAAC;CACD"}
