@@ -3,7 +3,6 @@ import { Inject, Injectable } from '@nestjs/common'
 import type { ISocialAuthAdapter } from '@/social-auth.adapter.interface.js'
 import { SOCIAL_AUTH_ADAPTERS } from '@/social-auth.constants.js'
 import type {
-	SocialAuthInput,
 	SocialAuthProfile,
 	SocialAuthProvider,
 } from '@/social-auth.types.js'
@@ -17,15 +16,18 @@ export class SocialAuthService {
 		private readonly adapters: Map<SocialAuthProvider, ISocialAuthAdapter>,
 	) {}
 
-	async resolveIdentity(input: SocialAuthInput): Promise<SocialAuthProfile> {
-		const adapter = this.adapters.get(input.provider)
+	async resolveIdentity(
+		provider: SocialAuthProvider,
+		token: string,
+	): Promise<SocialAuthProfile> {
+		const adapter = this.adapters.get(provider)
 
 		if (!adapter) {
 			throw new SocialAuthUnauthorizedException(
-				`Provider "${input.provider}" is not configured.`,
+				`Provider "${provider}" is not configured.`,
 			)
 		}
 
-		return adapter.resolveIdentity(input.token)
+		return adapter.resolveIdentity(token)
 	}
 }

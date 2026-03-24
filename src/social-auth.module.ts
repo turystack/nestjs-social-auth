@@ -1,14 +1,10 @@
 import { type DynamicModule, Module } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import type { ISocialAuthAdapter } from '@/social-auth.adapter.interface.js'
-import {
-	SOCIAL_AUTH_ADAPTERS,
-	SOCIAL_AUTH_OPTIONS,
-} from '@/social-auth.constants.js'
+import { SOCIAL_AUTH_OPTIONS } from '@/social-auth.constants.js'
 import { SocialAuthService } from '@/social-auth.service.js'
 import type {
-	SocialAuthOptions,
 	SocialAuthOptionsFactory,
 	SocialAuthProvider,
 } from '@/social-auth.types.js'
@@ -22,44 +18,45 @@ import { MicrosoftAdapter } from '@/adapters/microsoft/index.js'
 export class SocialAuthModule {
 	static register(factory: SocialAuthOptionsFactory): DynamicModule {
 		return {
-			exports: [SocialAuthService],
+			exports: [
+				SocialAuthService,
+			],
+			imports: [
+				ConfigModule,
+			],
 			module: SocialAuthModule,
 			providers: [
 				{
-					inject: [ConfigService],
+					inject: [
+						ConfigService,
+					],
 					provide: SOCIAL_AUTH_OPTIONS,
-					useFactory: (config: ConfigService) => factory(config),
-				},
-				{
-					inject: [SOCIAL_AUTH_OPTIONS],
-					provide: SOCIAL_AUTH_ADAPTERS,
-					useFactory: (opts: SocialAuthOptions) => {
+					useFactory: (config: ConfigService) => {
+						const opts = factory(config)
+
 						const adapters = new Map<SocialAuthProvider, ISocialAuthAdapter>()
 
 						if (opts.providers.google) {
 							adapters.set(
-								'GOOGLE' as SocialAuthProvider,
+								'GOOGLE',
 								new GoogleAdapter(opts.providers.google.clientId),
 							)
 						}
 
 						if (opts.providers.facebook) {
-							adapters.set(
-								'FACEBOOK' as SocialAuthProvider,
-								new FacebookAdapter(),
-							)
+							adapters.set('FACEBOOK', new FacebookAdapter())
 						}
 
 						if (opts.providers.microsoft) {
 							adapters.set(
-								'MICROSOFT' as SocialAuthProvider,
+								'MICROSOFT',
 								new MicrosoftAdapter(opts.providers.microsoft.tenantId),
 							)
 						}
 
 						if (opts.providers.apple) {
 							adapters.set(
-								'APPLE' as SocialAuthProvider,
+								'APPLE',
 								new AppleAdapter(opts.providers.apple.clientId),
 							)
 						}
