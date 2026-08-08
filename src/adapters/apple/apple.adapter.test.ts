@@ -25,7 +25,7 @@ describe('AppleAdapter', () => {
 			protectedHeader: {
 				alg: 'ES256',
 			},
-		} as any)
+		} as unknown as Awaited<ReturnType<typeof jwtVerify>>)
 
 		const profile = await adapter.resolveIdentity('valid-token')
 
@@ -34,7 +34,7 @@ describe('AppleAdapter', () => {
 			email: 'user@privaterelay.appleid.com',
 			id: 'apple-user-123',
 			name: null,
-
+			provider: 'APPLE',
 		})
 	})
 
@@ -46,7 +46,7 @@ describe('AppleAdapter', () => {
 			protectedHeader: {
 				alg: 'ES256',
 			},
-		} as any)
+		} as unknown as Awaited<ReturnType<typeof jwtVerify>>)
 
 		const profile = await adapter.resolveIdentity('subsequent-login')
 
@@ -55,7 +55,7 @@ describe('AppleAdapter', () => {
 			email: null,
 			id: 'apple-user-456',
 			name: null,
-
+			provider: 'APPLE',
 		})
 	})
 

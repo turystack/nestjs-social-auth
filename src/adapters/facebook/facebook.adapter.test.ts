@@ -33,7 +33,7 @@ describe('FacebookAdapter', () => {
 			email: 'user@facebook.com',
 			id: 'fb-user-123',
 			name: 'Jane Doe',
-
+			provider: 'FACEBOOK',
 		})
 	})
 
@@ -52,7 +52,7 @@ describe('FacebookAdapter', () => {
 			email: null,
 			id: 'fb-user-456',
 			name: null,
-
+			provider: 'FACEBOOK',
 		})
 	})
 

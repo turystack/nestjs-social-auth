@@ -1,19 +1,19 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose'
 
 import type { ISocialAuthAdapter } from '@/social-auth.adapter.interface.js'
-import type { SocialAuthProfile } from '@/social-auth.types.js'
+import type { SocialAuthProfileOf } from '@/social-auth.types.js'
 
 import { SocialAuthUnauthorizedException } from '@/exceptions/social-auth-unauthorized.exception.js'
 
 const GOOGLE_JWKS_URI = 'https://www.googleapis.com/oauth2/v3/certs'
 const GOOGLE_ISSUER = 'https://accounts.google.com'
 
-export class GoogleAdapter implements ISocialAuthAdapter {
+export class GoogleAdapter implements ISocialAuthAdapter<'GOOGLE'> {
 	private readonly jwks = createRemoteJWKSet(new URL(GOOGLE_JWKS_URI))
 
 	constructor(private readonly clientId: string) {}
 
-	async resolveIdentity(token: string): Promise<SocialAuthProfile> {
+	async resolveIdentity(token: string): Promise<SocialAuthProfileOf<'GOOGLE'>> {
 		try {
 			const { payload } = await jwtVerify(token, this.jwks, {
 				audience: this.clientId,
@@ -25,6 +25,7 @@ export class GoogleAdapter implements ISocialAuthAdapter {
 				email: (payload.email as string) ?? null,
 				id: payload.sub!,
 				name: (payload.name as string) ?? null,
+				provider: 'GOOGLE',
 			}
 		} catch {
 			throw new SocialAuthUnauthorizedException()

@@ -27,7 +27,7 @@ describe('GoogleAdapter', () => {
 			protectedHeader: {
 				alg: 'RS256',
 			},
-		} as any)
+		} as unknown as Awaited<ReturnType<typeof jwtVerify>>)
 
 		const profile = await adapter.resolveIdentity('valid-token')
 
@@ -36,7 +36,7 @@ describe('GoogleAdapter', () => {
 			email: 'user@gmail.com',
 			id: 'google-user-123',
 			name: 'John Doe',
-
+			provider: 'GOOGLE',
 		})
 	})
 
@@ -48,7 +48,7 @@ describe('GoogleAdapter', () => {
 			protectedHeader: {
 				alg: 'RS256',
 			},
-		} as any)
+		} as unknown as Awaited<ReturnType<typeof jwtVerify>>)
 
 		const profile = await adapter.resolveIdentity('minimal-token')
 
@@ -57,7 +57,7 @@ describe('GoogleAdapter', () => {
 			email: null,
 			id: 'google-user-456',
 			name: null,
-
+			provider: 'GOOGLE',
 		})
 	})
 

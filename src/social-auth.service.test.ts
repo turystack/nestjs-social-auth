@@ -3,7 +3,6 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { SOCIAL_AUTH_ADAPTERS } from '@/social-auth.constants.js'
 import { SocialAuthService } from '@/social-auth.service.js'
-import { SocialAuthProvider } from '@/social-auth.types.js'
 
 import { SocialAuthUnauthorizedException } from '@/exceptions/social-auth-unauthorized.exception.js'
 
@@ -43,10 +42,7 @@ describe('SocialAuthService', () => {
 	it('should delegate to the correct adapter', async () => {
 		const service = await createService()
 
-		const result = await service.resolveIdentity({
-			provider: SocialAuthProvider.GOOGLE,
-			token: 'valid-token',
-		})
+		const result = await service.resolveIdentity('GOOGLE', 'valid-token')
 
 		expect(result).toEqual(mockProfile)
 		expect(mockAdapter.resolveIdentity).toHaveBeenCalledWith('valid-token')
@@ -55,12 +51,9 @@ describe('SocialAuthService', () => {
 	it('should throw when provider is not configured', async () => {
 		const service = await createService(new Map())
 
-		await expect(
-			service.resolveIdentity({
-				provider: SocialAuthProvider.FACEBOOK,
-				token: 'token',
-			}),
-		).rejects.toThrow(SocialAuthUnauthorizedException)
+		await expect(service.resolveIdentity('FACEBOOK', 'token')).rejects.toThrow(
+			SocialAuthUnauthorizedException,
+		)
 	})
 
 	it('should propagate adapter errors', async () => {
@@ -76,14 +69,11 @@ describe('SocialAuthService', () => {
 					'APPLE',
 					failingAdapter,
 				],
-			]) as any,
+			]),
 		)
 
-		await expect(
-			service.resolveIdentity({
-				provider: SocialAuthProvider.APPLE,
-				token: 'bad-token',
-			}),
-		).rejects.toThrow(SocialAuthUnauthorizedException)
+		await expect(service.resolveIdentity('APPLE', 'bad-token')).rejects.toThrow(
+			SocialAuthUnauthorizedException,
+		)
 	})
 })
